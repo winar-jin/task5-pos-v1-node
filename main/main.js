@@ -21,18 +21,14 @@ module.exports = function main(inputs) {
         }
         return itemCodes;
     })();
-
     handelCodes.forEach(itemCode => {
         let itemInfo = originItemInfo(itemCode);
         itemsInfo.push(itemInfo);
     });
-
     itemsInfo.forEach(item => originAmount += item.itemAmount);
-
     itemsInfo.forEach(itemInfo => {
         promotionItemInfo(itemInfo) ? promotionsInfo.push(promotionItemInfo(itemInfo)) : null;
     });
-
     itemsInfo.forEach(item => {
         if (promotionsInfo.some(promotion => promotion.barcode === item.barcode)) {
             let promotionInfo = promotionsInfo.filter(promotion => promotion.barcode === item.barcode);
@@ -41,7 +37,6 @@ module.exports = function main(inputs) {
             inventoryString += `名称：${item.name}，数量：${item.quantity}${item.unit}，单价：${item.price.toFixed(2)}(元)，小计：${item.itemAmount.toFixed(2)}(元)\n`;
         }
     });
-
     inventoryString += '----------------------\n';
     inventoryString += '挥泪赠送商品：\n';
     promotionsInfo.forEach(item => {
@@ -53,7 +48,6 @@ module.exports = function main(inputs) {
     inventoryString += `节省：${promotionAmount.toFixed(2)}(元)\n`;
     inventoryString += '**********************';
     console.log(inventoryString);
-
     return;
 };
 
