@@ -1,6 +1,5 @@
 function loadAllItems() {
-    return [
-        {
+    return [{
             barcode: 'ITEM000000',
             name: '可口可乐',
             unit: '瓶',
@@ -40,14 +39,17 @@ function loadAllItems() {
 }
 
 function loadPromotions() {
-    return [
-        {
-            type: 'BUY_TWO_GET_ONE_FREE',
-            barcodes: [
-                'ITEM000000',
-                'ITEM000001',
-                'ITEM000005'
-            ]
-        }
-    ];
+    return [{
+        type: 'BUY_TWO_GET_ONE_FREE',
+        barcodes: [
+            'ITEM000000',
+            'ITEM000001',
+            'ITEM000005'
+        ]
+    }];
+}
+
+module.exports = {
+    loadAllItems,
+    loadPromotions
 }
