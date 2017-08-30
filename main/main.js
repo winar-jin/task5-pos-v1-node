@@ -5,8 +5,7 @@ module.exports = function main(inputs) {
   let promotionsInfo = [];
   let handelCodes = formatCodes(inputs);
   handelCodes.forEach(itemCode => {
-    let itemInfo = originItemInfo(itemCode);
-    itemsInfo.push(itemInfo);
+    itemsInfo.push(originItemInfo(itemCode));
   });
   itemsInfo.forEach(item => {
     promotionItemInfo(item) ? promotionsInfo.push(promotionItemInfo(item)) : null;
@@ -59,21 +58,18 @@ function formatCodes(inputs) {
 
 function originItemInfo(itemCode) {
   const allItems = database.loadAllItems();
-  const [brcode, quantity] = itemCode.split('-');
-  let itemInfo = null;
-  allItems.forEach(item => {
-    if (item.barcode === brcode) {
-      itemInfo = {
-        'barcode': item.barcode,
-        'unit': item.unit,
-        'name': item.name,
-        'quantity': quantity ? parseInt(quantity, 10) : 1,
-        'price': item.price,
-        'itemAmount': item.price * parseInt(quantity, 10)
-      };
+  const [barcode, quantity] = itemCode.split('-');
+  let item = allItems.find(item => item.barcode === barcode);
+  if (item) {
+    return {
+      'barcode': item.barcode,
+      'unit': item.unit,
+      'name': item.name,
+      'quantity': quantity ? parseInt(quantity, 10) : 1,
+      'price': item.price,
+      'itemAmount': item.price * parseInt(quantity, 10)
     }
-  });
-  return itemInfo;
+  }
 }
 
 function promotionItemInfo(itemInfo) {
